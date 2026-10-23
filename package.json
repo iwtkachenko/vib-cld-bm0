@@ -1,0 +1,28 @@
+{
+  "name": "claude2-pm",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": ["packages/*", "apps/*"],
+  "engines": { "node": ">=22.22.0" },
+  "scripts": {
+    "infra:up": "bash scripts/infra.sh up",
+    "infra:down": "bash scripts/infra.sh down",
+    "infra:reset": "bash scripts/infra.sh reset",
+    "infra:logs": "bash scripts/infra.sh logs",
+    "infra:ps": "bash scripts/infra.sh ps",
+    "dev": "concurrently -k -n api,web -c blue,green \"npm run dev -w @pm/api\" \"npm run dev -w @pm/web\"",
+    "build": "npm run build -w @pm/web && npm run build -w @pm/api",
+    "start": "npm run start -w @pm/api",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "vitest run",
+    "smoke": "tsx scripts/smoke.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "concurrently": "^10.0.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.4"
+  }
+}
